@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Css学习基础笔记04</title>
+      <link href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/"/>
+      <url>/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/</url>
+      
+        <content type="html"><![CDATA[<h1 id="CSS基础语法学习——定位，元素显示与隐藏，CSS高级技巧"><a href="#CSS基础语法学习——定位，元素显示与隐藏，CSS高级技巧" class="headerlink" title="CSS基础语法学习——定位，元素显示与隐藏，CSS高级技巧"></a>CSS基础语法学习——定位，元素显示与隐藏，CSS高级技巧</h1><h2 id="CSS定位（position）"><a href="#CSS定位（position）" class="headerlink" title="CSS定位（position）"></a>CSS定位（position）</h2><ol><li><p>元素的定位属性</p><ul><li><p>元素的定位属性主要包括定位模式和边偏移两个部分</p></li><li><p>边偏移</p><table><thead><tr><th align="center">边偏移属性</th><th align="left">描述</th></tr></thead><tbody><tr><td align="center">top</td><td align="left">顶部偏移量，定义元素对其父元素上边线的距离</td></tr><tr><td align="center">bottom</td><td align="left">底部偏移量，定义元素对其父元素下边线的距离</td></tr><tr><td align="center">left</td><td align="left">左侧偏移量，定义元素对其父元素左边线的距离</td></tr><tr><td align="center">right</td><td align="left">右侧偏移量，定义元素对其父元素右边线的距离</td></tr></tbody></table></li><li><p>定位模式（定位的分类）</p><table><thead><tr><th align="center">值</th><th align="left">描述</th></tr></thead><tbody><tr><td align="center">static</td><td align="left">自动定位（默认定位方式）</td></tr><tr><td align="center">relative</td><td align="left">相对定位，相对于其原文档流的位置进行定位</td></tr><tr><td align="center">absolute</td><td align="left">绝对定位，相对于其上一个已经定位的父元素进行定位</td></tr><tr><td align="center">fixed</td><td align="left">固定定位，相对于浏览器窗口进行定位</td></tr></tbody></table></li><li><p>静态定位（static）</p><ul><li>静态定位为默认定位模式，对于边偏移无效。一般用于<code>清除定位</code></li></ul></li><li><p>相对定位（relative）</p><ul><li>将元素相对于它在的标准流中的位置进行定位</li><li>通过<code>相对定位</code>后通过边偏移属性改变元素的位置，但是原来所占有的位置会继续占有</li><li>每次移动位置是以自己的左上角为基点进行移动。<br><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Frelative.png" alt="相对定位图解"></li></ul></li><li><p>绝对定位(absolute)</p><ul><li>绝对定位完全脱离标准流的,它不占有位置</li><li>若父元素<code>没有</code>设置定位,则子元素会以浏览器作为标准进行偏移,若父元素设置定位,则以最近父元素位置作为基准进行偏移</li></ul></li><li><p>固定定位(fixed)</p><ul><li>固定定位是绝对定位的一种特殊形式</li><li>固定定位的元素跟父级没有任何关系,只认浏览器</li><li>固定定位完全脱离标准流,不占有位置,不随着滚动条滚动</li><li><code>注:</code>IE6等低版本浏览器不支持固定定位</li><li><code>注:</code>固定定位的盒子一定要写宽和高,除非有内容撑开不用谢</li></ul></li></ul></li><li><p>子绝父相<code>**</code></p><ul><li>孩子元素使用<code>绝对定位</code>(不占有位置,脱离标准流),父级元素使用<code>相对定位</code>(占有位置,不脱离标准流)</li></ul></li><li><p>绝对定位的盒子水平/垂直居中</p><ul><li>普通定位的盒子在设置宽度后使用<code>margin: 0 auto </code>可以实现水平居中,添加绝对定位后则失效</li><li>定位的盒子实现水平/垂直居中有一个算法:<ul><li>首先left:50%</li><li>左走自己宽度的一半</li></ul></li></ul></li><li><p>叠放次序(z-index)</p><ul><li>当多个元素同时发生定位时,定位元素之间有可能发生重叠。</li><li>z-index默认值为0,取值越大,定位元素在层叠元素中越居上。</li><li>如果取值相同,根据书写顺序后来居上。</li><li>后面的数字一定不能加单位。</li><li>只有<code>相对定位</code>,<code>绝对定位</code>,<code>固定定位</code>有此属性,其余标准流,浮动,静态定位都无此属性。</li></ul></li><li><p>对以上四种定位的总结</p><table><thead><tr><th align="left">定位模式</th><th align="left">是否脱标占有位置</th><th align="left">是否可以使用边偏移</th><th align="left">移动位置基准</th></tr></thead><tbody><tr><td align="left">静态 static</td><td align="left">不脱标,正常模式</td><td align="left"><code>不</code>可使用</td><td align="left">正常模式</td></tr><tr><td align="left">相对定位 relative</td><td align="left">不脱标,占有位置</td><td align="left">可以使用</td><td align="left">相对自身位置移动</td></tr><tr><td align="left">绝对定位 absolute</td><td align="left">脱标,不占有位置</td><td align="left">可以使用</td><td align="left">相对于定位父级移动位置</td></tr><tr><td align="left">固定定位 fixed</td><td align="left">脱标,不占有位置</td><td align="left">可以使用</td><td align="left">相对于浏览器移动位置</td></tr></tbody></table></li><li><p>定位模式转换</p><ul><li><code>和浮动一样</code>,元素添加绝对定位和相对定位后(都是脱标不占位),元素模式也会发生转换,都转换为行内块模式</li><li>一些行内元素,若需要添加浮动,或者是绝对定位,相对定位,则不在需要添加模式转换<code>display:inline-block</code>,可以直接设置宽度和高度。</li></ul></li></ol><h2 id="二、元素的显示与隐藏"><a href="#二、元素的显示与隐藏" class="headerlink" title="二、元素的显示与隐藏"></a>二、元素的显示与隐藏</h2><ol><li>在CSS中有3个显示和隐藏的单词比较常见，他们分别是<code>display</code>,<code>visibility</code>,<code>overflow</code></li><li><code>display</code>显示<ul><li><code>display:none</code>隐藏对象，与它相反的是<code>display:block</code>,除了转换为块级元素外，同时还有显示元素的意思。</li><li>特点：隐藏元素后不在保留位置。</li></ul></li><li><code>visibility</code>可见性<ul><li>设置或检索是否显示对象</li><li>visible:对象可视</li><li>hidden：对象隐藏</li><li>特点：隐藏之后继续保持原有位置</li></ul></li><li>overflow溢出<ul><li>检索或设置当前对象的内容超过其指定高度或宽度时如何管理内容</li><li>visible:不剪切内容也不添加滚动条（默认）</li><li>auto：超出自动显示滚动条，不超出不显示滚动条</li><li>hidden：不显示超过对象尺寸的内容，超过部分隐藏掉</li><li>scroll：不管超不超出内容，总是显示隐藏条</li></ul></li></ol><h2 id="三、CSS高级技巧"><a href="#三、CSS高级技巧" class="headerlink" title="三、CSS高级技巧"></a>三、CSS高级技巧</h2><ol><li><p>CSS用户界面样式</p><ul><li>所谓用户界面样式，就是更让一些用户操作样式。比如：更改用户的鼠标样式，表单轮廓等。</li></ul></li><li><p>鼠标样式cursor</p><ul><li>设置或检索在对象上移动的鼠标指针采用何种系统预定义的光标形状。</li><li><code>cursor:default 小白| pointer 小手| move 移动|text 文本</code></li></ul></li><li><p>轮廓outline</p><ul><li>是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用</li><li><code>outline: outline-color|| outline-style || outline-width</code></li><li>最直接的写法 outline: 0; 取消轮廓线</li></ul></li><li><p>防止拖拽文本域（resize）</p><ul><li>设置resize:none 可以防止 火狐，谷歌等浏览器随意拖动文本域</li></ul></li><li><p>vertical-align垂直对齐</p><ul><li>通常用来控制图片或默认表单与文字的对齐方式</li><li><code>vertical-align</code>:middle对于块级元素无效</li><li><code>vertical-align: baseline| middle | top | bottom</code><br><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fvertical.png" alt="vertical-align三种模式"></li></ul></li><li><p>去除图片底部空白间隙</p><ul><li>可以看见上图<code>div</code>块元素添加边框后底部具有空白间隙。</li><li>有一个十分重要的特性，图片或者表单等<code>行内块元素</code>，它们的底线会和父级盒子的基线对齐。这样就造成了图片底部的空白间隙。</li><li>解决方法：<ul><li>给img标签添加<code>display:block;</code>转换为块级元素就不会存在此问题</li><li>设置img标签<code>vertical-align: top | middle;</code>因为是默认基线对齐才产生的空白间隙，只要设置对齐方式为middle或者top即可解决。（用的较多）</li></ul></li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端学习 </tag>
+            
+            <tag> Css </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Css学习基础笔记03</title>
       <link href="/2022/03/19/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/"/>
       <url>/2022/03/19/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/</url>
