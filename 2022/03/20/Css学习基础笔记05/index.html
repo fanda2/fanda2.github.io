@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Css学习基础笔记05 | Another Dimension</title><meta name="keywords" content="前端学习,Css"><meta name="author" content="fanda"><meta name="copyright" content="fanda"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画一、溢出的文字隐藏 work-break:自动换行（主要处理英文单词） normal: 使用浏览器默认的换行规则 break-all：允许在单词内换行 keep-all: 只能在 半角空格 或 连字符 处换行   white-space 设置或检索对象内文本显示方式，通常我们使用于强制一行显示内容。 normal:  nowrap: 强制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Css学习基础笔记05">
+<meta property="og:url" content="http://example.com/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/index.html">
+<meta property="og:site_name" content="Another Dimension">
+<meta property="og:description" content="CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画一、溢出的文字隐藏 work-break:自动换行（主要处理英文单词） normal: 使用浏览器默认的换行规则 break-all：允许在单词内换行 keep-all: 只能在 半角空格 或 连字符 处换行   white-space 设置或检索对象内文本显示方式，通常我们使用于强制一行显示内容。 normal:  nowrap: 强制">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fanimation.jpg">
+<meta property="article:published_time" content="2022-03-20T14:21:41.000Z">
+<meta property="article:modified_time" content="2022-03-20T15:06:29.616Z">
+<meta property="article:author" content="fanda">
+<meta property="article:tag" content="前端学习">
+<meta property="article:tag" content="Css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fanimation.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Css学习基础笔记05',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-20 23:06:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="APlayer.min.css"><div id="aplayer"></div><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js" async></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk"></script><meta name="generator" content="Hexo 6.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Another Dimension</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Css学习基础笔记05</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-20T14:21:41.000Z" title="发表于 2022-03-20 22:21:41">2022-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-20T15:06:29.616Z" title="更新于 2022-03-20 23:06:29">2022-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Css学习基础笔记05"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画"><a href="#CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画" class="headerlink" title="CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画"></a>CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画</h1><h2 id="一、溢出的文字隐藏"><a href="#一、溢出的文字隐藏" class="headerlink" title="一、溢出的文字隐藏"></a>一、溢出的文字隐藏</h2><ol>
+<li><code>work-break</code>:自动换行（主要处理英文单词）<ul>
+<li>normal: 使用浏览器默认的换行规则</li>
+<li>break-all：允许在单词内换行</li>
+<li>keep-all: 只能在 半角空格 或 连字符 处换行</li>
+</ul>
+</li>
+<li><code>white-space</code><ul>
+<li>设置或检索对象内文本显示方式，通常我们使用于强制一行显示内容。</li>
+<li>normal: </li>
+<li>nowrap: 强制在同一行内显示所有文本，直到文本结束或者遭遇<code>&lt;br/&gt;</code>标签才换行</li>
+</ul>
+</li>
+<li><code>text-overflow</code>: 文本溢出<ul>
+<li><code>text-ocerflow: clip | ellipsis</code></li>
+<li>设置或检索是否使用一个省略标记（……）标示对象内文本溢出</li>
+<li>clip:不显示省略号，只是简单的裁剪</li>
+<li>ellipsis: 当对象文本溢出时显示省略号标志</li>
+<li><code>注：</code>必须强调在一行内显示，text-overflow才有效果</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、CSS精灵技术（sprite）-小妖精-雪碧"><a href="#二、CSS精灵技术（sprite）-小妖精-雪碧" class="headerlink" title="二、CSS精灵技术（sprite） 小妖精 雪碧"></a>二、CSS精灵技术（sprite） 小妖精 雪碧</h2><ol>
+<li><p><code>精灵技术产生的背景</code>：由于网站中会有较多小的背景图作为修饰，当图片过多时，服务器就会频繁的接收和发送请求，这会大大降低页面的加载速度。为了减少服务器接收和发送请求的次数，提高网页加载速度，出现了CSS精灵技术。</p>
+</li>
+<li><p>精灵技术的本质：是一种处理网页背景图像的方式，它将一个页面涉及到的零星背景集中到一张图上去。当用户请求时，只需要发送一次请求，页面中的所有背景图像即可展示出来。</p>
+</li>
+<li><p>精灵图的应用，整个页面的小图标背景在一张图上，需要使用背景时引用这张大图，然后通过<code>background-position:</code>设置位置偏移来显示出需要的背景。<br><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fsprite.png" alt="精灵图样张"></p>
+</li>
+<li><p><code>注：</code>若背景图片不算多，可以不用使用精灵图。因而存在维护麻烦的问题。</p>
+</li>
+<li><p>字体图标（iconfont）</p>
+<ul>
+<li>字体图标的优点：<ul>
+<li>可以做出和图片一样可以做的事情，改变透明度，旋转等</li>
+<li>本质是文字，可以很随意改变颜色，产生阴影，透明效果等</li>
+<li>本身体积小，但携带的信息并没有消弱</li>
+<li>几乎支持所有的浏览器</li>
+<li>移动端设备比较常用</li>
+</ul>
+</li>
+<li>字体图标使用流程（感觉比较麻烦）<ul>
+<li>UI人员设计字体图标效果图（svg）</li>
+<li>前端人员上传生成兼容性的字体文件包</li>
+<li>前端人员下载兼容字体文件包到本地</li>
+<li>把字体文件包引入到HTML页面中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>滑动门</p>
+<ul>
+<li><p>为了使各种特殊形状的背景能够自适应元素中文本内容的多少，出现了CSS滑动门技术。它从新的角度构建页面，使各种特殊形状的背景能够自由拉伸滑动。</p>
+</li>
+<li><p>核心技术：CSS精灵（主要是背景位置），盒子padding撑开宽度，以适应不同字数的导航栏</p>
+</li>
+<li><p>经典布局</p>
+ <figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span> 书写文字内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li><p>具体实现步骤：</p>
+<ul>
+<li><p>a设置背景左侧，padding撑开合适宽度。</p>
+</li>
+<li><p>span设置背景右侧，padding撑开合适宽度，剩下的由文字继续撑开宽度。</p>
+</li>
+<li><p>之所以要a标签包含span是因为整个导航栏都需要点击。</p>
+<p><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2F1-w1.gif" alt="滑动门演示"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、CSS动画"><a href="#三、CSS动画" class="headerlink" title="三、CSS动画"></a>三、CSS动画</h2><ol>
+<li><p>过渡（CSS3）</p>
+<ul>
+<li>在CSS3里使用<code>transition</code>可以实现补间动画（过渡效果)，并且当前元素只要有”属性”发生变化时即存在两种状态(我们用A和B代指），就可以实现<code>平滑的过渡</code>，为了方便演示采用hover切换两种状态，但是并不仅仅局限于hover状态来实现过渡。</li>
+<li>transition：要过度的属性 花费的时间 运动曲线 何时开始；（如果有多组属性变化可用逗号隔开）<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="left">描述</th>
+<th align="center">CSS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">transition</td>
+<td align="left">简写属性，用于一个属性中设置四个过渡属性</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">transition-property</td>
+<td align="left">规定应用过渡的CSS属性名称</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">transition-duration</td>
+<td align="left">定义过渡效果花费的时间，默认为0，单位为秒(s)</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">transition-timing-funtion</td>
+<td align="left">规定过渡效果的时间曲线，默认为“ease”</td>
+<td align="center">3</td>
+</tr>
+<tr>
+<td align="center">transition- delay</td>
+<td align="left">规定过渡效果何时开始，默认为0</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+</li>
+<li>运动曲线：linear(匀速)，esse(逐渐慢下来)，ease-in(加速)，ease-out(减速)，ease-in-out(先加速后减速)。</li>
+<li><code>注：</code>transition要添加在div里面而不是hover里面，如果加在hover里面则会在鼠标移开时瞬间返回原样，无还原过渡动画。</li>
+</ul>
+</li>
+<li><p>2D变形（CSS3）transform</p>
+<ul>
+<li><code>transform是CSS3中具有颠覆性的特征之一</code>，可以实现元素的位移、旋转、倾斜、缩放</li>
+<li>位移 <code>translate(x,y)</code><ul>
+<li>transform:translate(x,y) 移动，平移。</li>
+<li>移动数值填写百分比不是以父级为参考，而是以自己的长或宽作为参考。</li>
+</ul>
+</li>
+<li>缩放 <code>scale(x,y)</code><ul>
+<li>可以对元素进行水平和垂直方向的缩放</li>
+<li>若只写一个参数，宽度与高度都缩放</li>
+<li></li>
+</ul>
+</li>
+<li>旋转 <code>rotate(deg)</code><ul>
+<li>deg代表旋转的度数，正值代表顺时针旋转，负值代表逆时针旋转</li>
+<li>旋转中心点的设置：  transform-origin:center center(默认)</li>
+<li>left top  左上角</li>
+<li>left bottom 左下角</li>
+<li>设置精确单位 transform-origin:20px 20px;</li>
+</ul>
+</li>
+<li>倾斜 skew(deg,deg)<ul>
+<li>transform:skew(30deg,30deg)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>3D变形（CSS3）transform</p>
+<ul>
+<li>记住坐标：<ul>
+<li>X左边为负，右边为正</li>
+<li>Y上边是负，下边为正</li>
+<li>Z里面是负，外面是正</li>
+</ul>
+</li>
+<li><code>rotateX（deg）</code>代表元素绕着X轴旋转</li>
+<li><code>rotateY(deg)</code> 代表元素绕着Y轴旋转</li>
+<li><code>rotateZ(deg) </code> 类似于之际使用rotate进行旋转</li>
+</ul>
+</li>
+<li><p>透视（perspective）</p>
+<ul>
+<li>透视原理：近大远小</li>
+<li>浏览器透视：把近大远小的所有图像透视到屏幕上</li>
+<li>perspective:一般作为一个属性设置给父元素，作用于所有3D转换的子元素</li>
+<li>视距越大透视效果越不明显，视距越小透视效果越明显。</li>
+<li><code>transform:translate3d(x,y,z)</code> ; x,y可以是数值px，也可以是百分比。但z值只能为数值</li>
+<li><code>backface-visibility:hidden</code> 不是正面对屏幕，就隐藏</li>
+</ul>
+</li>
+</ol>
+<h2 id="四、动画（CSS3）animation"><a href="#四、动画（CSS3）animation" class="headerlink" title="四、动画（CSS3）animation"></a>四、动画（CSS3）animation</h2><ol>
+<li>动画是CSS3具有颠覆性的特征之一，可通过设置多个结点来精确控制一个或一组动画，常用来实现复杂的动画效果。<ul>
+<li><code>animation:动画名称 动画时间 动画曲线 何时开始 播放次数 是否反向播放</code></li>
+<li>动画名称自定义</li>
+</ul>
+</li>
+<li>定义动画 <code>@keyframes</code><ul>
+<li>需要先定义动画才能应用动画</li>
+<li>定义动画：<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@keyfranes</span> 动画名称 {   </span><br><span class="line">  <span class="selector-tag">from</span>{ 开始位置(<span class="number">0%</span>) } </span><br><span class="line">  <span class="selector-tag">to</span>{结束位置(<span class="number">100%</span>)} </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+<li>无限循环播放动画：<code>animation-iteration-count:infinite</code></li>
+<li>停止动画：<code>animation-play-state:paused</code></li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">fanda</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/">http://example.com/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Another Dimension</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/">前端学习</a><a class="post-meta__tags" href="/tags/Css/">Css</a></div><div class="post_share"><div class="social-share" data-image="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fanimation.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/"><img class="prev-cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/1645025816037.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Css学习基础笔记06</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/"><img class="next-cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fs4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Css学习基础笔记04</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/15/Css%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001/" title="Css基础学习笔记01"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2F111.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-15</div><div class="title">Css基础学习笔记01</div></div></a></div><div><a href="/2022/03/18/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="Css学习基础笔记02"><img class="cover" src="https://img1.baidu.com/it/u=1826751777,2960439106&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-18</div><div class="title">Css学习基础笔记02</div></div></a></div><div><a href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/" title="Css学习基础笔记04"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fs4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">Css学习基础笔记04</div></div></a></div><div><a href="/2022/03/19/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="Css学习基础笔记03"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fbg1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-19</div><div class="title">Css学习基础笔记03</div></div></a></div><div><a href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/" title="Css学习基础笔记06"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/1645025816037.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">Css学习基础笔记06</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">fanda</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fanda2"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/fanda2" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:3055093273@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/1069368447" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="https://500px.com.cn/fanjiangtao" target="_blank" title="500px"><i class="fab fa-500px"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E6%BA%A2%E5%87%BA%E7%9A%84%E6%96%87%E5%AD%97%E9%9A%90%E8%97%8F%EF%BC%8C%E7%B2%BE%E7%81%B5%E6%8A%80%E6%9C%AF%EF%BC%8CCSS3%E5%8A%A8%E7%94%BB"><span class="toc-number">1.</span> <span class="toc-text">CSS基础语法学习——溢出的文字隐藏，精灵技术，CSS3动画</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%BA%A2%E5%87%BA%E7%9A%84%E6%96%87%E5%AD%97%E9%9A%90%E8%97%8F"><span class="toc-number">1.1.</span> <span class="toc-text">一、溢出的文字隐藏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CSS%E7%B2%BE%E7%81%B5%E6%8A%80%E6%9C%AF%EF%BC%88sprite%EF%BC%89-%E5%B0%8F%E5%A6%96%E7%B2%BE-%E9%9B%AA%E7%A2%A7"><span class="toc-number">1.2.</span> <span class="toc-text">二、CSS精灵技术（sprite） 小妖精 雪碧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81CSS%E5%8A%A8%E7%94%BB"><span class="toc-number">1.3.</span> <span class="toc-text">三、CSS动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8A%A8%E7%94%BB%EF%BC%88CSS3%EF%BC%89animation"><span class="toc-number">1.4.</span> <span class="toc-text">四、动画（CSS3）animation</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/" title="Css学习基础笔记06"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/1645025816037.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记06"/></a><div class="content"><a class="title" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/" title="Css学习基础笔记06">Css学习基础笔记06</a><time datetime="2022-03-20T15:07:38.000Z" title="发表于 2022-03-20 23:07:38">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/" title="Css学习基础笔记05"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fanimation.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记05"/></a><div class="content"><a class="title" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/" title="Css学习基础笔记05">Css学习基础笔记05</a><time datetime="2022-03-20T14:21:41.000Z" title="发表于 2022-03-20 22:21:41">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/" title="Css学习基础笔记04"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fs4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记04"/></a><div class="content"><a class="title" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/" title="Css学习基础笔记04">Css学习基础笔记04</a><time datetime="2022-03-19T16:10:44.000Z" title="发表于 2022-03-20 00:10:44">2022-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/19/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="Css学习基础笔记03"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/CSS%2Fbg1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记03"/></a><div class="content"><a class="title" href="/2022/03/19/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="Css学习基础笔记03">Css学习基础笔记03</a><time datetime="2022-03-19T02:36:16.000Z" title="发表于 2022-03-19 10:36:16">2022-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/18/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="Css学习基础笔记02"><img src="https://img1.baidu.com/it/u=1826751777,2960439106&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=889&amp;h=500" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记02"/></a><div class="content"><a class="title" href="/2022/03/18/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="Css学习基础笔记02">Css学习基础笔记02</a><time datetime="2022-03-18T05:22:36.000Z" title="发表于 2022-03-18 13:22:36">2022-03-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By fanda</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Love look not with the eyes,but with the mind.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'jKGuUa2K2VEQ5pUPipsLn0h4-gzGzoHsz',
+      appKey: 'RSoNn5t98QJQxWRdUJt089kx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'http://example.com/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/'
+    this.page.identifier = '2022/03/20/Css学习基础笔记05/'
+    this.page.title = 'Css学习基础笔记05'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script src="/js/table.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script><script src="/true"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
