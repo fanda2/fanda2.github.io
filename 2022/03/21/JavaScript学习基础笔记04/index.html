@@ -1,0 +1,617 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>JavaScript学习基础笔记04 | Another Dimension</title><meta name="keywords" content="JS,Js基础语法"><meta name="author" content="fanda"><meta name="copyright" content="fanda"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="javascript学习笔记——JS内置对象一、JavaScript内置对象 JavaScript中的对象分为三种：自定义对象，内置对象，浏览器对象  自定义对象和内置对象是JS 基础内容，属于ECMAScript；第三种浏览器对象属于JS独有的 （JS API） 内置对象：JS自带的一些对象，这些对象供开发者使用，并提供一些常用的或是最基本而非常用的功能（属性和方法）。 内置对象的最大优点就是帮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript学习基础笔记04">
+<meta property="og:url" content="http://example.com/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/index.html">
+<meta property="og:site_name" content="Another Dimension">
+<meta property="og:description" content="javascript学习笔记——JS内置对象一、JavaScript内置对象 JavaScript中的对象分为三种：自定义对象，内置对象，浏览器对象  自定义对象和内置对象是JS 基础内容，属于ECMAScript；第三种浏览器对象属于JS独有的 （JS API） 内置对象：JS自带的一些对象，这些对象供开发者使用，并提供一些常用的或是最基本而非常用的功能（属性和方法）。 内置对象的最大优点就是帮">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs4.jpg">
+<meta property="article:published_time" content="2022-03-21T08:55:34.000Z">
+<meta property="article:modified_time" content="2022-03-23T08:54:28.210Z">
+<meta property="article:author" content="fanda">
+<meta property="article:tag" content="JS">
+<meta property="article:tag" content="Js基础语法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs4.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript学习基础笔记04',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-23 16:54:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="APlayer.min.css"><div id="aplayer"></div><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js" async></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk"></script><meta name="generator" content="Hexo 6.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Another Dimension</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript学习基础笔记04</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-21T08:55:34.000Z" title="发表于 2022-03-21 16:55:34">2022-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-23T08:54:28.210Z" title="更新于 2022-03-23 16:54:28">2022-03-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0JS/">学习JS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="JavaScript学习基础笔记04"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="javascript学习笔记——JS内置对象"><a href="#javascript学习笔记——JS内置对象" class="headerlink" title="javascript学习笔记——JS内置对象"></a>javascript学习笔记——JS内置对象</h1><h2 id="一、JavaScript内置对象"><a href="#一、JavaScript内置对象" class="headerlink" title="一、JavaScript内置对象"></a>一、JavaScript内置对象</h2><ol>
+<li><p>JavaScript中的对象分为三种：自定义对象，内置对象，浏览器对象</p>
+<ul>
+<li>自定义对象和内置对象是JS 基础内容，属于ECMAScript；第三种浏览器对象属于JS独有的 （JS API）</li>
+<li>内置对象：JS自带的一些对象，这些对象供开发者使用，并提供一些常用的或是最基本而非常用的功能（属性和方法）。</li>
+<li>内置对象的最大优点就是帮助我们快速开发</li>
+<li>JS中提供的内置对象：Math、Date、Array、String等</li>
+</ul>
+</li>
+<li><p>Math数学对象</p>
+<ul>
+<li>不是一个构造函数，所以不需要 new 来调用，而是直接使用里面的属性和方法</li>
+<li>常用的方法和属性<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.PI   <span class="comment">//圆周率</span></span><br><span class="line"><span class="built_in">Math</span>.floor();  <span class="comment">//向下取整</span></span><br><span class="line"><span class="built_in">Math</span>.ceil();  <span class="comment">//向上取整</span></span><br><span class="line"><span class="built_in">Math</span>.round();  <span class="comment">//四舍五入  特殊情况Math.round(1.5)结果为2  Math.round(-1.5)结果为-1</span></span><br><span class="line"><span class="built_in">Math</span>.abs();   <span class="comment">//取绝对值</span></span><br><span class="line"><span class="built_in">Math</span>.Max();   <span class="comment">//Math.main()</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>随机数方法<code>random()</code><ul>
+<li>random()返回一个随机小数  0&lt;=x&lt;1 ,方法中不加参数</li>
+<li>得到两个数之间的随机整数（不包含最大值）<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomInt</span>(<span class="params">min,max</span>)</span>{</span><br><span class="line">    min=<span class="built_in">Math</span>.ceil(min);</span><br><span class="line">    max=<span class="built_in">Math</span>.floor(max);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*(max-min))+min;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+<li>得到两个数之间的随机数（包含这连个数）<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandomIntInclusive</span>(<span class="params">min,max</span>)</span>{</span><br><span class="line">    min=<span class="built_in">Math</span>.ceil(min);</span><br><span class="line">    max=<span class="built_in">Math</span>.floor(max);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random()*(max-min+<span class="number">1</span>))+min;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>日期对象</p>
+<ul>
+<li>是一个构造函数，必须使用 new 来调用创建日期对象</li>
+<li>如果没有参数则返回系统的当前时间：<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="built_in">console</span>.log(date);</span><br></pre></td></tr></tbody></table></figure></li>
+<li>参数的写法<ul>
+<li>数字型：2022,02,22  (逗号进行分割) <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date1=<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2022</span>,<span class="number">2</span>,<span class="number">22</span>);</span><br><span class="line"><span class="built_in">console</span>.log(date1);  <span class="comment">//输出月份会比实际月大一</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>字符串型： ‘2022-02-22 12:22:12’</li>
+</ul>
+</li>
+<li>日期格式<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="center">说明</th>
+<th align="left">代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">getFullYear()</td>
+<td align="center">获取当年</td>
+<td align="left">dObj.getFullYear()</td>
+</tr>
+<tr>
+<td align="center">getMonth()</td>
+<td align="center">获取当月（0-11）</td>
+<td align="left">dObj.getMonth()</td>
+</tr>
+<tr>
+<td align="center">getDate()</td>
+<td align="center">获取当天日期</td>
+<td align="left">dObj.getDate()</td>
+</tr>
+<tr>
+<td align="center">getDay()</td>
+<td align="center">获取星期几（周日0 到周六6）</td>
+<td align="left">dObj.getDay()</td>
+</tr>
+<tr>
+<td align="center">getHours()</td>
+<td align="center">获取当前小时</td>
+<td align="left">dObj.getHours()</td>
+</tr>
+<tr>
+<td align="center">getMinutes()</td>
+<td align="center">获取当前分钟</td>
+<td align="left">dObj.getMinutes()</td>
+</tr>
+<tr>
+<td align="center">getSeconds()</td>
+<td align="center">获取当前秒</td>
+<td align="left">dObj.getSexonds()</td>
+</tr>
+</tbody></table>
+</li>
+<li>时间格式化<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">time</span>(<span class="params"></span>)</span>{</span><br><span class="line"> <span class="keyword">var</span> time=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"> <span class="keyword">var</span> h=time.getHours();</span><br><span class="line"> h=h&lt;<span class="number">10</span>?  <span class="string">'0'</span>+h:h;</span><br><span class="line"> <span class="keyword">var</span> m=time.getMinutes();</span><br><span class="line"> m=m&lt;<span class="number">10</span>? <span class="string">'0'</span>+m:m;</span><br><span class="line"> <span class="keyword">var</span> s=time.getSeconds();</span><br><span class="line"> s=s&lt;<span class="number">10</span>? <span class="string">'0'</span>+s:s;</span><br><span class="line"> <span class="built_in">console</span>.log(h+<span class="string">':'</span>+m+<span class="string">':'</span>+s);</span><br><span class="line">}</span><br><span class="line">time();</span><br></pre></td></tr></tbody></table></figure></li>
+<li>获取日期的总的毫秒形式<ul>
+<li>Date()对象基于1970年1月1日起的毫秒，我们经常用总的毫秒数来计算时间，因为其更精确</li>
+<li>通过valurOf()  或者 getTime() 获得时间戳<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> date=<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="built_in">console</span>.log(date.valueOf());  <span class="comment">//输出时间戳</span></span><br><span class="line"><span class="built_in">console</span>.log(date.getTime());  <span class="comment">//输出时间戳</span></span><br><span class="line"><span class="keyword">var</span> date1= +<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="built_in">console</span>.log(date1);   <span class="comment">//输出时间戳</span></span><br><span class="line"> <span class="comment">// H5新增的</span></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="built_in">Date</span>.now());</span><br></pre></td></tr></tbody></table></figure></li>
+<li>倒计时案例（用户输入时间转换为时间戳，再用时间戳和当前时间戳相减，再将毫秒转换为时间）<ul>
+<li>d=parseInt(总秒数/60/60/24);  //<code>时间戳转换为天</code></li>
+<li>h=parseInt(总秒数/60/60%24);  //<code>时间戳转换为时</code></li>
+<li>m=parseInt(总秒数/60%60);</li>
+<li>s=parseInt(总秒数%60);   <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">            <span class="function"><span class="keyword">function</span> <span class="title">countDown</span>(<span class="params">time</span>)</span>{</span><br><span class="line"><span class="keyword">var</span> nowTime=+<span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">var</span> inputTime=+<span class="keyword">new</span> <span class="built_in">Date</span>(time);</span><br><span class="line"><span class="keyword">var</span> t=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(inputTime&gt;nowTime)</span><br><span class="line">{</span><br><span class="line"> t=(inputTime-nowTime)/<span class="number">1000</span>;  <span class="comment">//将毫秒转换为秒</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">else</span>{</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"时间小于当前时间！"</span>)</span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span> d=<span class="built_in">parseInt</span>(t/<span class="number">60</span>/<span class="number">60</span>/<span class="number">24</span>);</span><br><span class="line"> d=d&lt;<span class="number">10</span>? <span class="string">'0'</span>+d:d;</span><br><span class="line"><span class="keyword">var</span> h=<span class="built_in">parseInt</span>(t/<span class="number">60</span>/<span class="number">60</span>%<span class="number">24</span>);</span><br><span class="line">   h=h&lt;<span class="number">10</span>? <span class="string">'0'</span>+h:h;</span><br><span class="line"><span class="keyword">var</span> m=<span class="built_in">parseInt</span>(t/<span class="number">60</span>%<span class="number">60</span>);</span><br><span class="line">  m=m&lt;<span class="number">10</span>? <span class="string">'0'</span>+m:m;</span><br><span class="line"><span class="keyword">var</span> s=<span class="built_in">parseInt</span>(t%<span class="number">60</span>);</span><br><span class="line">  s=s&lt;<span class="number">10</span>? <span class="string">'0'</span>+ s : s;</span><br><span class="line"><span class="built_in">console</span>.log(d+<span class="string">'天'</span>+h+<span class="string">'时'</span>+m+<span class="string">'分'</span>+s+<span class="string">'秒'</span>);</span><br><span class="line">             }</span><br><span class="line">           <span class="keyword">var</span> inputTime1=prompt(<span class="string">"请输入结束时间"</span>);</span><br><span class="line">           	countDown(inputTime1);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数组对象</p>
+<ul>
+<li>创建定长的数组 <code>var arr=new Array(10)</code> 数组长度为10</li>
+<li>创建有初始值的数组 <code>var arr=new Array(2,3,4)</code>  代表创建<code>[2,3,4]</code>数组</li>
+<li>检测是否为数组<ul>
+<li>instanceof 运算符<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[];</span><br><span class="line">   <span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>);  <span class="comment">//输出true</span></span><br><span class="line"><span class="keyword">var</span> obj={};</span><br><span class="line">   <span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>);  <span class="comment">//输出false</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Array.isArray(检测参数); <code>H5新增方法，IE9以上版本支持</code> <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[];</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr));  <span class="comment">//输出true</span></span><br><span class="line"><span class="keyword">var</span> obj={};</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(obj));  <span class="comment">//输出false</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li>添加和删除数组元素的方法<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">push(参数1,参数2…)</td>
+<td align="left">末尾添加一个或多个元素，注意修改原数组</td>
+<td align="left">返回新的长度</td>
+</tr>
+<tr>
+<td align="center">pop()</td>
+<td align="left">删除数组最后一个元素，把数组的长度减一，无参数，修改原数组</td>
+<td align="left">返回它删除元素的值</td>
+</tr>
+<tr>
+<td align="center">unshif(参数1…)</td>
+<td align="left">向数组的开头添加一个或多个元素，注意修改原数组</td>
+<td align="left">返回新的长度</td>
+</tr>
+<tr>
+<td align="center">shift()</td>
+<td align="left">删除数组第一个元素，把数组的长度减一，无参数，修改原数组</td>
+<td align="left">返回第一个元素的值</td>
+</tr>
+</tbody></table>
+</li>
+<li>数组排序<ul>
+<li><code>reverse()</code>  颠倒数组中的元素的顺序，无参数。会改变原来的数组，返回新数组<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">22</span>];</span><br><span class="line">arr.reverse();    <span class="comment">//进行翻转</span></span><br><span class="line"><span class="built_in">console</span>.log(arr);  <span class="comment">//输出[22,40,30,20,10]</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li><code>sort()</code> 对数组中的元素进行排序。会改变原来的数组，返回新数组<code>***</code><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">           <span class="keyword">var</span> arr=[<span class="number">7</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">17</span>,<span class="number">3</span>];</span><br><span class="line">           arr.sort();       <span class="comment">//进行排序</span></span><br><span class="line">           <span class="built_in">console</span>.log(arr);   <span class="comment">//输出[1,17,3,4,7]</span></span><br><span class="line"></span><br><span class="line">           	arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>{</span><br><span class="line">	<span class="keyword">return</span> a-b;</span><br><span class="line">               <span class="comment">// return b-a;  //会以降序排列</span></span><br><span class="line">})</span><br><span class="line">  <span class="built_in">console</span>.log(arr);    <span class="comment">//输出[ 1, 3, 4, 7, 17]</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li>数组索引方法<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">indexOf()</td>
+<td align="left">数组中查找给定元素的第一个索引</td>
+<td align="left">如果存在返回索引号，如果不存在则返回 -1</td>
+</tr>
+<tr>
+<td align="center">lastIndexOf()</td>
+<td align="left">在数组中的最后一个的索引</td>
+<td align="left">如果存在返回索引号，如果不存在则返回 -1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>返回案例<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=[<span class="string">'red'</span>,<span class="string">'green'</span>,<span class="string">'blue'</span>,<span class="string">'yellow'</span>,<span class="string">'blue'</span>,<span class="string">'pink'</span>];</span><br><span class="line">  <span class="built_in">console</span>.log(arr.indexOf(<span class="string">'blue'</span>));    <span class="comment">//输出值为2</span></span><br><span class="line">  <span class="built_in">console</span>.log(arr.lastIndexOf(<span class="string">'blue'</span>));  <span class="comment">// 输出值为4</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>数组去重,用旧数组中的元素取遍历新数组，若有则不在存了<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">         <span class="keyword">var</span> arr=[<span class="string">'q'</span>,<span class="string">'w'</span>,<span class="string">'e'</span>,<span class="string">'z'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>,<span class="string">'a'</span>,<span class="string">'s'</span>,<span class="string">'d'</span>,<span class="string">'f'</span>,<span class="string">'q'</span>,<span class="string">'z'</span>];</span><br><span class="line"><span class="keyword">var</span> newarr=[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)</span><br><span class="line">{</span><br><span class="line">	<span class="keyword">if</span>(newarr.indexOf(arr[i])==-<span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		newarr.push(arr[i]);</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"去重后的数组为"</span>+newarr);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li>数组转换为字符串<ul>
+<li>toString()：把数组转换成字符串，逗号分隔每一项。返回一个字符串</li>
+<li>join(‘分隔符’)：方法用于把数组中的所有元素转换为一个字符串。返回一个字符串</li>
+</ul>
+</li>
+<li>数组中某几个元素操作<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+<th align="left">返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">concat()</td>
+<td align="left">连接两个或多个数组，不影响原数组</td>
+<td align="left">返回一个新数组</td>
+</tr>
+<tr>
+<td align="center">slice()</td>
+<td align="left">数组截取 slice(begin,end)</td>
+<td align="left">返回被截取项目的新数组</td>
+</tr>
+<tr>
+<td align="center">splice()</td>
+<td align="left">数组删除 splice(第几个开始，删除个数)</td>
+<td align="left">返回被删除项目的新数组 注：这个会影响原数组</td>
+</tr>
+</tbody></table>
+</li>
+<li>基本包装类型：就是把简单数据类型包装为复杂数据类型，基本过程如下：<ul>
+<li>把简单数据类型包装为复杂数据类型<code>var temp=new String('abcd');</code></li>
+<li>把临时变量的值给str <code>str=temp;</code></li>
+<li>销毁这个临时变量 <code>temp=null;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字符串对象</p>
+<ul>
+<li><p>字符串的不可变：指的是里面的值不可变，虽然看上去可以改变内容，但实际是地址变了，内存中新开辟了一个内存空间。</p>
+</li>
+<li><p>根据字符返回位置</p>
+<ul>
+<li>字符串<code>所有</code>的方法都不会修改字符串本身（字符串是不可变的），操作完成会返回一个新的字符串。<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">indexOf(‘要查找的字符串’,开始的位置)</td>
+<td align="left">返回指定内容在元素字符串中的位置，找不到就返回-1，开始的位置是index索引号</td>
+</tr>
+<tr>
+<td align="center">lastIndexOf()</td>
+<td align="left">以后往前找，只找第一个匹配的</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p>根据位置返回字符（重点）<code>***</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+<th align="left">使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">charAt(index)</td>
+<td align="left">返沪指定位置的字符（index字符串的索引号）</td>
+<td align="left">str.cahrAt(3)</td>
+</tr>
+<tr>
+<td align="center">cahrCodeAt(index)</td>
+<td align="left">获取指定位置处字符串的ASClLL码(index索引号)</td>
+<td align="left">str.charCodeAt(3)</td>
+</tr>
+<tr>
+<td align="center">str[index]</td>
+<td align="left">获取指定位置处的字符</td>
+<td align="left">H5,IE8+支持 和charAt()等效</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>使用这个方法可以统计字符串中出现最多的字母以及出现的次数<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">           <span class="keyword">var</span> str=<span class="string">"qqwdaffasieotgnsayqpdgbgyawew"</span>;</span><br><span class="line">  <span class="keyword">var</span> obj={}</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++)</span><br><span class="line">       {</span><br><span class="line">     <span class="keyword">var</span> ss=str.charAt(i);</span><br><span class="line">     <span class="keyword">if</span>(obj[ss])</span><br><span class="line">     	{</span><br><span class="line">    obj[ss]++;</span><br><span class="line">   }</span><br><span class="line">   <span class="keyword">else</span>{</span><br><span class="line">    obj[ss]=<span class="number">1</span>;</span><br><span class="line">   }</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">var</span> max=<span class="number">0</span>,res;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> obj)</span><br><span class="line">  {</span><br><span class="line">   <span class="keyword">if</span>(obj[k]&gt;max)</span><br><span class="line">   {</span><br><span class="line">max=obj[k];</span><br><span class="line">res=k;</span><br><span class="line">   }</span><br><span class="line">  }</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"出现次数最多的字母为："</span>+res+<span class="string">"  出现次数为："</span>+max);</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li><p>字符串的操作方法（重点）<code>***</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">方法名</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">concat(str1,str2,str3…)</td>
+<td align="left">常用于连接两个或多个字符串。拼接字符串等效于+，<code>+</code>更常用</td>
+</tr>
+<tr>
+<td align="center">substr(start,length)</td>
+<td align="left">从start位置开始（索引号），length为取的个数</td>
+</tr>
+<tr>
+<td align="center">slice(start,end)</td>
+<td align="left">从start位置开始截取到end位置，end取不到（两个均为索引号）</td>
+</tr>
+<tr>
+<td align="center">substring(start,end)</td>
+<td align="left">从start位置开始截取到end位置，end取不到，基本与slice相同但是不接受负值</td>
+</tr>
+</tbody></table>
+<ul>
+<li>替换字符串 <code>replace('被替换的字符','替换成为的字符')</code> 注：只会替换第一个字符<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">      <span class="keyword">var</span> str=<span class="string">"qqwdaffasieotgnsayqpdgbgyawew"</span>;  <span class="comment">//替换字符串中所有a为*</span></span><br><span class="line"><span class="keyword">while</span>(str.indexOf(<span class="string">'a'</span>)!=-<span class="number">1</span>)</span><br><span class="line">{</span><br><span class="line"> str=str.replace(<span class="string">'a'</span>,<span class="string">'*'</span>);</span><br><span class="line">}</span><br><span class="line"><span class="built_in">console</span>.log(str);</span><br></pre></td></tr></tbody></table></figure></li>
+<li>字符串转换为数组 <code>split('分隔符')</code> <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> str=<span class="string">"pink,blue,yellow,pink,red,skyblue"</span>;</span><br><span class="line"><span class="keyword">var</span> arr=str.split(<span class="string">','</span>);</span><br><span class="line"><span class="built_in">console</span>.log(arr);   <span class="comment">//输出数组</span></span><br><span class="line"><span class="built_in">console</span>.log(arr.join(<span class="string">'|'</span>))    <span class="comment">//输出字符串以 '|'分隔</span></span><br><span class="line">      <span class="comment">//之前学习的数组转换为字符串使用 join('分隔符')</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li><p>大小写转换 <code>toUpperCase()</code>转换为大写，<code>toLowerCase()</code>  转换为小写 </p>
+ <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str=<span class="string">"abcdsfr"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.toUpperCase())</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="JavaScript中的数据类型"><a href="#JavaScript中的数据类型" class="headerlink" title="JavaScript中的数据类型"></a>JavaScript中的数据类型</h2><ol>
+<li>简单数据类型与复杂数据类型<ul>
+<li>简单数据类型（基本数据类型，值类型）： 在存储的变量中存储的是值本身<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer=<span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> timer);  <span class="comment">//输出的为Object</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>复杂数据类型（引用类型）：在存储的变量中存储的仅仅是地址（引用），因此叫做应用类型。通过new关键字创建的对象（系统对象，自定义对象），如Object,Array,Date等</li>
+</ul>
+</li>
+<li>堆和栈<ul>
+<li>栈（操作系统）： 由操作系统自动分配释放存放函数的参数值、局部变量的值等。其他操作方式类似于数据结构中的栈。<code>简单数据类型存放到栈里面</code>。</li>
+<li>堆（操作系统）： 存放复杂类型（对象），一般由程序员分配释放，若程序员不释放，由垃圾回收机制回收。<code>复杂数据类型存放到堆里面</code></li>
+<li>简单类型传参 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    	<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a</span>)</span>{</span><br><span class="line">	a++;</span><br><span class="line">	<span class="built_in">console</span>.log(a);  <span class="comment">//输出11</span></span><br><span class="line">}</span><br><span class="line"><span class="keyword">var</span> x=<span class="number">10</span>;</span><br><span class="line">fn(x);</span><br><span class="line"><span class="built_in">console</span>.log(x);  <span class="comment">//输出10</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">fanda</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/">http://example.com/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Another Dimension</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JS/">JS</a><a class="post-meta__tags" href="/tags/Js%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Js基础语法</a></div><div class="post_share"><div class="social-share" data-image="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/"><img class="next-cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs3.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JavaScript学习基础笔记03</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="JavaScript学习基础笔记03"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs3.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">JavaScript学习基础笔记03</div></div></a></div><div><a href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B001/" title="JavaScript学习基础笔记01"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">JavaScript学习基础笔记01</div></div></a></div><div><a href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="JavaScript学习基础笔记02"><img class="cover" src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">JavaScript学习基础笔记02</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">fanda</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fanda2"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/fanda2" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:3055093273@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/1069368447" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="https://500px.com.cn/fanjiangtao" target="_blank" title="500px"><i class="fab fa-500px"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E2%80%94%E2%80%94JS%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">javascript学习笔记——JS内置对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81JavaScript%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.</span> <span class="toc-text">一、JavaScript内置对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">JavaScript中的数据类型</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/" title="JavaScript学习基础笔记04"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记04"/></a><div class="content"><a class="title" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/" title="JavaScript学习基础笔记04">JavaScript学习基础笔记04</a><time datetime="2022-03-21T08:55:34.000Z" title="发表于 2022-03-21 16:55:34">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="JavaScript学习基础笔记03"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记03"/></a><div class="content"><a class="title" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B003/" title="JavaScript学习基础笔记03">JavaScript学习基础笔记03</a><time datetime="2022-03-21T08:55:28.000Z" title="发表于 2022-03-21 16:55:28">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="JavaScript学习基础笔记02"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记02"/></a><div class="content"><a class="title" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B002/" title="JavaScript学习基础笔记02">JavaScript学习基础笔记02</a><time datetime="2022-03-21T08:55:02.000Z" title="发表于 2022-03-21 16:55:02">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B001/" title="JavaScript学习基础笔记01"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjs.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记01"/></a><div class="content"><a class="title" href="/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B001/" title="JavaScript学习基础笔记01">JavaScript学习基础笔记01</a><time datetime="2022-03-21T08:54:27.000Z" title="发表于 2022-03-21 16:54:27">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/" title="Css学习基础笔记06"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/1645025816037.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Css学习基础笔记06"/></a><div class="content"><a class="title" href="/2022/03/20/Css%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/" title="Css学习基础笔记06">Css学习基础笔记06</a><time datetime="2022-03-20T15:07:38.000Z" title="发表于 2022-03-20 23:07:38">2022-03-20</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By fanda</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Love look not with the eyes,but with the mind.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'jKGuUa2K2VEQ5pUPipsLn0h4-gzGzoHsz',
+      appKey: 'RSoNn5t98QJQxWRdUJt089kx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'http://example.com/2022/03/21/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B004/'
+    this.page.identifier = '2022/03/21/JavaScript学习基础笔记04/'
+    this.page.title = 'JavaScript学习基础笔记04'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script src="/js/table.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script><script src="/true"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
