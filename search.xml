@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>JavaScript学习基础笔记06</title>
+      <link href="/2022/03/25/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/"/>
+      <url>/2022/03/25/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B006/</url>
+      
+        <content type="html"><![CDATA[<h1 id="javascript学习笔记——事件高级-BOM浏览器对象模型"><a href="#javascript学习笔记——事件高级-BOM浏览器对象模型" class="headerlink" title="javascript学习笔记——事件高级,BOM浏览器对象模型"></a>javascript学习笔记——事件高级,BOM浏览器对象模型</h1><ul><li>注册事件（绑定事件）</li><li>删除事件（解绑事件）</li><li>DOM事件流</li><li>事件对象</li><li>阻止事件冒泡</li><li>事件委托（代理，委派）</li><li>常用的鼠标事件</li><li>常用键盘事件</li></ul><h2 id="一、事件高级"><a href="#一、事件高级" class="headerlink" title="一、事件高级"></a>一、事件高级</h2><ol><li><p>注册事件（绑定事件）：给元素添加事件</p><ul><li>注册事件的两种方式：<code>传统方式</code> , <code>方法监听注册方式</code></li><li>传统方式：<ul><li>以on开头的事件，如onclick</li><li><code>特点:</code> 注册事件的唯一性</li><li>同一个元素，同一个事件只能设置一个处理函数，最后注册的处理函数将会覆盖前面注册的处理函数。</li></ul></li><li>方法监听注册方式：<ul><li><code>addEventListener()</code> 是一个方法 。</li><li>IE9之前的IE浏览器不支持，可以使用<code>attachEvent()</code>代替</li><li><code>特点：</code>同一个元素，同一个事件可以注册多个监听器</li><li>按照注册顺序依次执行</li><li><code>eventTarget.addEventListener(type,listener,useCapture)</code> 将指定的监听器注册到eventTatget（目标对象）上，当该对象触发指定的事件时，就会执行事件处理函数。</li><li><code>type:</code> 事件类型字符串，比如click,mouseover等。</li><li><code>listener:</code> 事件处理函数，事件发生时会调用该函数。</li><li><code>useCapture:</code> 可选参数，是一个布尔值，默认为false。</li><li><code>eventTarget.attachEvent(eventNameWithOn,callBack)</code>将指定的监听器注册到eventTarget(目标对象)上，当该对象触发指定的事件时，指定回调函数就会被执行。（作为了解）</li><li><code>eventNameWithOn</code> 事件类型字符串，比如click,mouseover等</li><li><code>callback</code> 事件处理函数，当目标触发事件时回调函数被调用。</li></ul></li></ul></li><li><p>删除事件</p><ul><li>传统注册事件的删除事件：<ul><li>eventTarget.onclick=null;</li></ul></li><li>方法监听注册方式<ul><li>eventTarget.removeEventListener(type,listener,useCapture)</li><li>eventTarget.detachEvent(eventNameWithOn,callBack)</li></ul></li></ul></li><li><p>DOM事件流</p><ul><li><p>事件流是描述从页面中接收事件的顺序，事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程叫做DOM事件流。</p></li><li><p>DOM事件流分为三个阶段：</p><ul><li>捕捉阶段</li><li>当前目标阶段</li><li>冒泡阶段</li></ul><p>   <img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2FDOM.png" alt="DOM事件流分为三个阶段"></p><ul><li>事件冒泡：IE最早提出，事件开始时由最具体的元素接收，然后逐级向上传播到DOM最顶层节点的过程。</li><li>事件捕获：网景最早提出，由DOM最顶层节点开始，然后逐级向下传播到最具体的元素接收的过程。</li><li><code>注：</code>(1)JS代码中只能执行捕获或者冒泡其中的一个阶段; (2)<code>onclick</code>和<code>attachEvent</code>只能得到冒泡阶段。 (3)<code>eventTarget.addEventListener(type,listener,useCapture)</code>第三个参数如果是true表示在事件捕捉阶段调用事件处理函数，如果是false（默认），表示在事件冒泡阶段调用事件处理函数。<code>实际开发中更加关注冒泡，事件捕获很少关注。有些事件没有冒泡，比如：onblur,onfocus,onmouseenter,onmouseleae</code></li></ul></li></ul></li><li><p>事件对象</p><ul><li>event就是一个事件对象，写在监听函数的小阔号中，当形参来看。</li><li>事件对象只有有了事件才会存在。它是系统给我们自动创建的。不需要我们传递参数。</li><li>事件对象是事件的一系列相关数据的集合，跟事件相关，如果是鼠标事件，就包含了鼠标的相关信息，比如鼠标坐标等。</li><li>这个事件对象可以自己命名：event， evt , e 等</li><li><code>兼容性问题：</code> 对于IE6,7,8 只有通过window.event获取。<code>e=e||window.event</code>兼容性写法</li><li>事件对象常见的属性和方法<table><thead><tr><th align="center">事件对象属性方法</th><th align="left">说明</th></tr></thead><tbody><tr><td align="center">e.target</td><td align="left">返回触发事件的对象 (标准)</td></tr><tr><td align="center">e.srcElement</td><td align="left">返回触发事件的对象  （非标准 IE6,7,8使用）</td></tr><tr><td align="center">e.type</td><td align="left">返回事件类型 比如click,mouseover等</td></tr><tr><td align="center">e.cancelBUbble</td><td align="left">该属性阻止冒泡   （非标准 IE6,7,8使用）</td></tr><tr><td align="center">e.returnValue</td><td align="left">该属性阻止默认事件（默认行为），比如不让连接跳转（非标准 IE6,7,8使用）</td></tr><tr><td align="center">e.preventDefault()</td><td align="left">该属性阻止默认事件（默认行为），比如不让连接跳转  标准</td></tr><tr><td align="center">e.stopPropagation()</td><td align="left">阻止冒泡  标准</td></tr></tbody></table></li></ul></li><li><p>阻止事件冒泡</p><ul><li>事件冒泡：开始时由最具体的元素接收，然后逐级向上传播到DOM最顶层节点。</li><li><code>e.stopPropagation()</code> 标准写法</li><li><code>e.cancelBUbble=true;</code>  非标准 IE6,7,8使用</li></ul></li><li><p>事件委托（代理，委派）</p><ul><li>事件委托也称为事件代理，在jQuery里面称为事件委派。</li><li><code>事件委托的原理*</code>:不是每个子节点单独设置事件监听器，而是事件监听器设置在其父节点上，然后利用冒泡原理影响设置每个节点。</li></ul></li><li><p>鼠标事件</p><ul><li>常用的鼠标事件：<ul><li>禁止鼠标右键菜单:<code>contextmenu</code>主要控制应该何时显示上下文菜单，主要用于程序员取消默认的上下文菜单。<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'contextmenu'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span><br><span class="line">  e.preventDefault();</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li><li>禁止鼠标选中（selectstart 开始选中） <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'selectstart'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>{</span><br><span class="line">  e.preventDefault();</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li></ul></li><li>鼠标事件对象<ul><li><code>event</code>对象代表事件的状态，跟事件相关的一系列信息的集合。现阶段我们主要使用鼠标事件对象<code>MouseEvent</code>和键盘事件对象<code>KeyboardEvent</code><table><thead><tr><th align="center">鼠标事件对象</th><th align="left">说明</th></tr></thead><tbody><tr><td align="center">e.clientX</td><td align="left">返回鼠标相对于<code>浏览器窗口可视区</code>的<code>X</code>坐标</td></tr><tr><td align="center">e.clientY</td><td align="left">返回鼠标相对于<code>浏览器窗口可视区</code>的<code>Y</code>坐标</td></tr><tr><td align="center">e.pageX</td><td align="left">返回鼠标相对于<code>文档页面</code>的<code>X</code>坐标 IE9+z支持</td></tr><tr><td align="center">e.pageY</td><td align="left">返回鼠标相对于<code>文档页面</code>的<code>Y</code>坐标 IE9+z支持</td></tr><tr><td align="center">e.screeX</td><td align="left">返回鼠标相对于<code>电脑屏幕</code>的<code>X</code>坐标</td></tr><tr><td align="center">e.screeY</td><td align="left">返回鼠标相对于<code>电脑屏幕</code>的<code>Y</code>坐标</td></tr></tbody></table></li></ul></li></ul></li><li><p>键盘事件</p><ul><li>常用的键盘事件<table><thead><tr><th align="center">键盘事件</th><th align="left">触发条件</th></tr></thead><tbody><tr><td align="center">onkeyuo</td><td align="left">某个键盘案件被松开时触发</td></tr><tr><td align="center">onkeydown</td><td align="left">某个键盘按键被按下时触发</td></tr><tr><td align="center">onkeypress</td><td align="left">某个键盘按键被按下时触发 <code>但它不识别功能键 比如ctrl shift箭头等</code></td></tr><tr><td align="center"></td><td align="left"></td></tr></tbody></table><ul><li>三个事件的执行顺序 keydown-&gt; keypress-&gt; keyup</li></ul></li><li>键盘事件对象<table><thead><tr><th align="center">键盘事件对象 （属性）</th><th align="left">说明</th></tr></thead><tbody><tr><td align="center">keyCode</td><td align="left">返回该键的ASCLL码值</td></tr></tbody></table><ul><li><code>keyup</code>和<code>keydowm</code>通过keyCdoe获取按键的ASCALL码值时是不区分大小写的（a和A都是得到65），只有<code>keypress</code>才区分大小写。</li><li><code>keypress</code>和<code>keydown</code> 在文本框里面的特点：它们两个事件触发的时候，文字还没有落入到文本框中。</li><li><code>keyup</code> 事件触发的时候，文字已经落入到文本框中</li></ul></li></ul></li></ol><h2 id="二、BOM浏览器对象模型"><a href="#二、BOM浏览器对象模型" class="headerlink" title="二、BOM浏览器对象模型"></a>二、BOM浏览器对象模型</h2><ol><li>BOM是浏览器对象模型，它提供了独立于  内容而与<code>浏览器窗口进行交互</code>的对象，其核心对象是window<ul><li>浏览器对象模型</li><li>把<code>浏览器</code>当作一个<code>对象</code>来看待</li><li>BOM的顶级对象是<code>window</code></li><li>BOM学习的是浏览器窗口交互的一些对象</li><li>BOM是浏览器厂商在各浏览器上定义的，兼容性差。</li></ul></li><li>BOM构成<br><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fbom9.png" alt="BOM的构成"><ul><li>是JS访问浏览器窗口的一个接口</li><li>是一个全局对象，定义在全局作用域中的一个变量、函数 都会变成window对象的属性和方法 。在调用的时候可以省略window</li></ul></li><li>window对象常见的事件<ul><li>窗口加载事件：当文档内容完全加载完成之后会触发该事件（包括图像，脚本文件，CSS 文件等），就调用的处理函数。<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'load'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{})</span><br></pre></td></tr></tbody></table></figure><ul><li>使用  window.onload 传统方法只能注册一次，若多次注册则以最后一个为准</li><li>使用   window.addEventListener(‘load’,function(){}) 则没有次数限制，可以注册多个事件。</li><li><code>DOMcontentLoaded</code> 事件触发时，仅当DOM加载完成，不包含样式表，图片，flash等等。（IE9+支持）<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'DOMcontentLoaded'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{})</span><br></pre></td></tr></tbody></table></figure></li></ul></li><li>调整窗口大小事件<ul><li><code>window.onresize</code> 是调整窗口大小加载事件，当触发时就调用处理函数。</li><li>只要窗口像素变化就会触发这个事件。</li><li>经常利用这个事件来完成响应式布局，window.innerWidth当前屏幕的宽度。</li></ul></li></ul></li><li>定时器<ul><li>两种定时器：页面中可能存在多个计时器，通常会给计时器添加标志符来区别不同定时器。<ul><li><code>setTimeout()</code>  定时器，隔多少时间后调用里面的函数。只调用一次。</li><li><code>setInterval() </code> 每隔这个延迟时间，就调用一次这个回调函数。重复调用。</li></ul></li><li><code>setTimeout()</code> <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.setTimeout(<span class="string">'调用函数'</span>,[延迟的毫秒数]);  <span class="comment">//[]可以省略</span></span><br></pre></td></tr></tbody></table></figure><ul><li>回调函数</li><li>停止setTimeout()计时器使用<code>window.clearTimeout(timeoutID)</code><figure class="highlight html"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>点击停止倒计时<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> btn=<span class="built_in">document</span>.querySelector(<span class="string">'button'</span>);</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> timer=<span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span></span><br><span class="line"><span class="javascript">   <span class="built_in">console</span>.log(<span class="string">"倒计时结束"</span>);</span></span><br><span class="line"><span class="javascript"> },<span class="number">5000</span>);</span></span><br><span class="line"><span class="javascript"> btn.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span></span><br><span class="line"><span class="javascript"><span class="built_in">clearTimeout</span>(<span class="string">'timer'</span>);</span></span><br><span class="line"><span class="javascript"> <span class="built_in">console</span>.log(<span class="string">"倒计时停止！"</span>)</span></span><br><span class="line"><span class="javascript"> })</span></span><br><span class="line"><span class="javascript"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></li></ul></li><li><code>setInterval() </code><ul><li>每隔设定的时间就会调用这个函数，可以用来做倒计时</li><li>用于做倒计时时会遇到刷新页面时没有时间显示，因为这个函数设置会在1秒后调用函数，因此我们可以在这个回调函数之前先调用一次时间显示函数，避免了刷新显示空白。</li><li>停止setInterval()定时器使用<code>clearInterval()</code>方法。参数为定时器的标识符。</li></ul></li><li><code>this *</code><ul><li>this的指向在函数定义的时候是确定不了的，只有函数执行的时候才能确定this到底指向谁，一般情况下this的最终指向的是那个调用它的对象。</li><li>在<code>全局作用域</code>或者<code>普通函数</code>中this指向全局对象window。（定时器里面的this指向window）</li><li><code>方法调用中</code>谁调用this指向谁。</li><li><code>构造函数中</code>this指向构造函数的实例。</li></ul></li></ul></li><li>JS执行机制<ul><li>js是<code>单线程</code>的：JavaScript语言的一大特点是单线程，也就是说<code>同一个时间只能做一件事</code>。<ul><li>单线程意味着所有任务均需要排队，前一个任务结束后才会执行后一个任务。这样可能会导致若JS执行时间过长，会造成页面渲染不连贯，页面渲染加载产生阻塞的感觉。</li></ul></li><li><code>同步</code>和<code>异步</code><ul><li>为例解决页面加载阻塞的问题，利用多核CPU的计算能力，<code>HTML5</code>提出Web Worker标准，允许JavaScript脚本创建多线程，这样JS中就出现了<code>同步</code>和<code>异步</code>。</li><li>同步：前一个任务结束后再执行后一个任务，程序的执行顺序与任务的排列顺序是一致的、同步的。</li><li>异步：在做一件事时，因为这个事情比较花时间，所以在做这件事的同时可以去处理其他任务。<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">},<span class="number">1000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);    <span class="comment">//执行打印结果为  1,2,3; 属于异步执行。</span></span><br></pre></td></tr></tbody></table></figure></li></ul></li><li>同步任务：同步任务都是在主线程上执行，形成一个<code>执行栈</code></li><li>异步任务：JS的异步是通过回调函数实现的。一般而言，异步任务有如下三种类型<ul><li>普通事件：如<code>click , resize </code>等</li><li>资源加载：如<code>load , error</code>等</li><li>定时器：包括<code>setInerval , setTimeout</code>等</li></ul></li><li>JS执行机制<ul><li>先执行<code>执行栈中的同步任务</code></li><li>异步任务（回调函数）放在任务队列中。</li><li>一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取任务队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈开始执行。</li><li><code>事件循环(even loop)</code> 由于主线程不断地重复获得任务、执行任务、再获取任务、再执行。</li></ul></li></ul></li><li>location对象<ul><li>window对象提供了一个<code>location属性</code>用于<code>获取或设置窗体的URL</code>，并且可以用于解析URL。因为这个属性返回的是一个对象，所以我们将这个属性称为location对象。</li><li><code>URL</code>：统一资源定位符（Uniform Resource locator）是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。<ul><li>URL的一般语法格式为<code>protocol://host[:port]/path/[?query]#fragment</code> 例如:<code>http://www.itcast.cn/index.html?name=andy&amp;age=19#link</code><table><thead><tr><th align="center">组成</th><th align="left">说明</th></tr></thead><tbody><tr><td align="center">protocol</td><td align="left">通信协议，通常的http, ftp, maito等</td></tr><tr><td align="center">host</td><td align="left">主机（域名）</td></tr><tr><td align="center">port</td><td align="left">端口号 （可选），省略时使用方案的默认端口号，如http默认端口号为80</td></tr><tr><td align="center">path</td><td align="left"><code>路径</code>由 零或多个’/‘符号隔开的字符串，一般用来表示主机上的一个目录或文件地址</td></tr><tr><td align="center">query</td><td align="left">参数 以键值对的形式，通过<code>&amp;</code>符号分隔开</td></tr><tr><td align="center">fragment</td><td align="left">片段 <code>#</code>后面的内容常见于链接，锚点</td></tr></tbody></table></li></ul></li><li>location对象的属性<table><thead><tr><th align="center">location对象属性</th><th align="left">返回值</th></tr></thead><tbody><tr><td align="center"><code>location.href</code></td><td align="left">获取或者设置整个URL</td></tr><tr><td align="center">location.host</td><td align="left">返回主机（域名）</td></tr><tr><td align="center">location.port</td><td align="left">返回端口号 如果未写返回空字符串</td></tr><tr><td align="center">location.pathname</td><td align="left">返回路径</td></tr><tr><td align="center"><code>location.search</code></td><td align="left">返回参数</td></tr><tr><td align="center">location.hash</td><td align="left">返回片段 <code>#</code>后面的内容常见于链接、锚点</td></tr></tbody></table></li><li>location对象中的方法<table><thead><tr><th align="center">location对象方法</th><th align="left">返回值</th></tr></thead><tbody><tr><td align="center">location.assign()</td><td align="left">跟href一样也可以跳转页面（也称为重定向页面）记录历史可以后退页面</td></tr><tr><td align="center">location.replace()</td><td align="left">替换当前页面，因为不记录历史，所以不能后退页面</td></tr><tr><td align="center">location.reload()</td><td align="left">重新加载页面，相当于刷新按钮或者F5 如果参数为<code>true</code>则强制刷新，相当于ctrl+F5</td></tr></tbody></table></li><li>navigator对象<ul><li>navigator包含有关浏览器的信息，它有很多属性，常用的是<code>userAgent</code>，该属性可以返回由客户机发送服务器的user-agent头部值。</li><li>用于PC端和移动端的页面切换</li></ul></li><li>history对象<ul><li>window对象给我们提供history对象，与浏览器历史记录进行交互。该对象包含用户（在浏览器窗口中）访问过的URL<table><thead><tr><th align="center">history对象方法</th><th align="left">作用</th></tr></thead><tbody><tr><td align="center">back()</td><td align="left">可以后退功能</td></tr><tr><td align="center">forward()</td><td align="left">前进功能</td></tr><tr><td align="center">go(参数)</td><td align="left">前进后退功能 参数如果是1 则前进一个界面，参数如果是-1则后退一个界面</td></tr></tbody></table></li></ul></li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> JS学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JS </tag>
+            
+            <tag> BOM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JavaScript学习基础笔记05</title>
       <link href="/2022/03/25/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/"/>
       <url>/2022/03/25/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B005/</url>
@@ -151,9 +178,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
@@ -178,9 +205,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
@@ -205,9 +232,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
@@ -232,9 +259,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
@@ -259,9 +286,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
@@ -286,9 +313,9 @@
       
         <tags>
             
-            <tag> 前端学习 </tag>
-            
             <tag> Css </tag>
+            
+            <tag> 前端学习 </tag>
             
         </tags>
       
