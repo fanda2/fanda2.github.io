@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Vuex基础学习 | Another Dimension</title><meta name="keywords" content="Vuex基础"><meta name="author" content="fanda"><meta name="copyright" content="fanda"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VueX学习笔记01一、理解VueX vuex:专门在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式管理（读&#x2F;写），也是一种组件之间通信的方式。且适用于任意组件间通信。 github地址：https:&#x2F;&#x2F;vuex.vuejs.org&#x2F;zh&#x2F; 什么时候使用VueX 多个组件依赖于同一个状态 来自不同组件的行为需要变更同一状态   vuex的结构内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex基础学习">
+<meta property="og:url" content="http://example.com/2021/03/22/Vuex%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Another Dimension">
+<meta property="og:description" content="VueX学习笔记01一、理解VueX vuex:专门在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式管理（读&#x2F;写），也是一种组件之间通信的方式。且适用于任意组件间通信。 github地址：https:&#x2F;&#x2F;vuex.vuejs.org&#x2F;zh&#x2F; 什么时候使用VueX 多个组件依赖于同一个状态 来自不同组件的行为需要变更同一状态   vuex的结构内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/Vue%2Fvuex.jpg">
+<meta property="article:published_time" content="2021-03-22T06:11:29.000Z">
+<meta property="article:modified_time" content="2022-04-15T08:23:58.824Z">
+<meta property="article:author" content="fanda">
+<meta property="article:tag" content="Vuex基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/Vue%2Fvuex.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/03/22/Vuex%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vuex基础学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-15 16:23:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="APlayer.min.css"><div id="aplayer"></div><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js" async></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/artitalk"></script><meta name="generator" content="Hexo 6.0.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Another Dimension</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-diamond"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments"></i><span> 说说</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/conmment/"><i class="fa-fw fa fa-comments"></i><span> 留言</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vuex基础学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-22T06:11:29.000Z" title="发表于 2021-03-22 14:11:29">2021-03-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-15T08:23:58.824Z" title="更新于 2022-04-15 16:23:58">2022-04-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Vuex/">Vuex</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vuex基础学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="VueX学习笔记01"><a href="#VueX学习笔记01" class="headerlink" title="VueX学习笔记01"></a>VueX学习笔记01</h1><h2 id="一、理解VueX"><a href="#一、理解VueX" class="headerlink" title="一、理解VueX"></a>一、理解VueX</h2><ol>
+<li><code>vuex:</code>专门在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式管理（读/写），也是一种组件之间通信的方式。且适用于任意组件间通信。</li>
+<li>github地址：<a target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/">https://vuex.vuejs.org/zh/</a></li>
+<li>什么时候使用VueX<ul>
+<li>多个组件依赖于同一个状态</li>
+<li>来自不同组件的行为需要变更同一状态</li>
+</ul>
+</li>
+<li>vuex的结构内容<br><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/Vue%2Fvuex.png" alt="vuex"></li>
+</ol>
+<h2 id="二、VueX的使用"><a href="#二、VueX的使用" class="headerlink" title="二、VueX的使用"></a>二、VueX的使用</h2><ol>
+<li>搭建vuex环境<ul>
+<li>安装vuex, vue2需要安装 3版本的vuex  而vue3需要安装 4版本的vuex。默认安装最新版本<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vuex@3</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li>创建文件 <code>src/store/index.js</code><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该文件用于创建vuex中最核心的store</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//应用·vuex插件</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line">    <span class="comment">//准备acitions</span></span><br><span class="line"><span class="keyword">const</span> actions = {}</span><br><span class="line"></span><br><span class="line"><span class="comment">//准备mutations——用于操作数据</span></span><br><span class="line"><span class="keyword">const</span> mutations = {}</span><br><span class="line"></span><br><span class="line"><span class="comment">//准备state——用于存储数据（state ）</span></span><br><span class="line"><span class="keyword">const</span> state = {}</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建并导出store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store({</span><br><span class="line">    actions, <span class="comment">///触发简写actions:actions</span></span><br><span class="line">    mutations,</span><br><span class="line">    state</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li>
+<li>在<code>main.js</code> 中创建vm时传入store配置项<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"> <span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span>  <span class="comment">//一般文件夹下的index.js会默认引用</span></span><br><span class="line"> ......</span><br><span class="line"> <span class="comment">//创建vm</span></span><br><span class="line"> <span class="keyword">new</span> Vue({</span><br><span class="line">     <span class="attr">el</span>:<span class="string">"#app"</span>,</span><br><span class="line">     store,</span><br><span class="line">     <span class="attr">render</span>: <span class="function"><span class="params">h</span>=&gt;</span>h(App),</span><br><span class="line"> })</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Vuex的实际使用<ul>
+<li>组件中读取vuex的数据<code>$store.state.sum</code>  state为一个对象</li>
+<li>组件中修改vuex中的数据：<code>$store.dispath('action中的方法名',数据)</code>或者<code>$store.commit('mutations中的方法名',数据)</code></li>
+<li>action中可以进行逻辑处理（相当于餐厅服务员，可以同时存在多个），mutations中的函数进行数据处理，相当于餐厅的厨师。</li>
+<li>实际代码：<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该文件用于创建vuex中最核心的store</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></span><br><span class="line"><span class="comment">//应用·vuex插件</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line">    <span class="comment">//准备acitions</span></span><br><span class="line"><span class="keyword">const</span> actions = {</span><br><span class="line">    <span class="comment">//context是上下文，具有dispatch，commuit,state等</span></span><br><span class="line">    <span class="function"><span class="title">addnum</span>(<span class="params">context, value</span>)</span> {</span><br><span class="line">        context.commit(<span class="string">'AddNum'</span>, value)</span><br><span class="line">    },</span><br><span class="line">    <span class="function"><span class="title">jiannum</span>(<span class="params">context, value</span>)</span> {</span><br><span class="line">        context.commit(<span class="string">'JianNum'</span>, value)</span><br><span class="line">    },</span><br><span class="line">    <span class="function"><span class="title">addodd</span>(<span class="params">context, value</span>)</span> {</span><br><span class="line">        <span class="keyword">if</span> (state.sum % <span class="number">2</span>) {</span><br><span class="line">            context.commit(<span class="string">'AddNum'</span>, value)</span><br><span class="line">        }</span><br><span class="line">    },</span><br><span class="line">    <span class="function"><span class="title">addwait</span>(<span class="params">context, value</span>)</span> {</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> {</span><br><span class="line">            context.commit(<span class="string">'AddNum'</span>, value)</span><br><span class="line">        }, <span class="number">1000</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//准备mutations——用于操作数据</span></span><br><span class="line"><span class="keyword">const</span> mutations = {</span><br><span class="line">    <span class="function"><span class="title">AddNum</span>(<span class="params">state, value</span>)</span> {</span><br><span class="line">        state.sum += value</span><br><span class="line">    },</span><br><span class="line">    <span class="function"><span class="title">JianNum</span>(<span class="params">state, value</span>)</span> {</span><br><span class="line">        state.sum -= value</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">//准备state——用于存储数据（state ）</span></span><br><span class="line"><span class="keyword">const</span> state = {</span><br><span class="line">    <span class="attr">sum</span>: <span class="number">0</span> <span class="comment">//当前和为0</span></span><br><span class="line">}</span><br><span class="line"><span class="comment">//创建并导出store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store({</span><br><span class="line">    actions, <span class="comment">///触发简写actions:actions</span></span><br><span class="line">    mutations,</span><br><span class="line">    state</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li>
+<li><code>注：</code> 若没有网络请求或者其他业务逻辑，组件中也可以越过actions，即不写dispatch，直接编写commit</li>
+</ul>
+</li>
+<li><code>getters</code>的使用<ul>
+<li>概念：当state中的数据需要经过加工后再使用时，可以只用getters加工</li>
+<li>在<code>store.js</code>中追加<code>getters</code>配置<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="keyword">const</span> getters = {</span><br><span class="line"><span class="function"><span class="title">bigSum</span>(<span class="params">state</span>)</span> {</span><br><span class="line">        <span class="keyword">return</span> state.sum * <span class="number">10</span></span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="comment">//创建并导出store</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store({</span><br><span class="line">    ......</span><br><span class="line">    getters</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li>
+<li>组件中读取数据：  <code>$sotre.getters.bigSum</code>  (类似于computed属性)</li>
+</ul>
+</li>
+<li>四个map方法的使用（mapState,mapGetters,mapActions,mapMutations）<ul>
+<li><strong>mapState方法：</strong>用于帮助我们映射<code>state</code>中的数据为计算属性<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//借助mapState生成计算属性，从state中读取数据（对象写法）</span></span><br><span class="line"> ...mapState({<span class="attr">sum1</span>:<span class="string">'sum'</span>,<span class="attr">name1</span>:<span class="string">'name'</span>,<span class="attr">school1</span>:<span class="string">'school'</span>}), <span class="comment">// computed属性视作对象，mapState返回也是对象，一个对象插入另一个对象中使用...</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">//借助mapState生成计算属性，从state中读取数据（数组写法）</span></span><br><span class="line"> ...mapState([<span class="string">'sum'</span>,<span class="string">'name'</span>,<span class="string">'school'</span>]),</span><br></pre></td></tr></tbody></table></figure></li>
+<li><strong>napGetters方法：</strong> 用于帮助我们映射<code>getters</code>中的数据为计算属性<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//借助mapGetters生成计算属性，从getters中读取数据（数组写法）</span></span><br><span class="line">  ...mapGetters({<span class="attr">bigSum</span>:<span class="string">'bigSum'</span>}),</span><br><span class="line"><span class="comment">//借助mapGetters生成计算属性，从getters中读取数据（数组写法）</span></span><br><span class="line">  ...mapGetters([<span class="string">'bigSum'</span>])</span><br></pre></td></tr></tbody></table></figure></li>
+<li><strong>mapActions方法：</strong> 用于帮助我们生成<code>actions</code>对话的方法，即：包含<code>$store.dispatch(xxx)</code>的函数。<code>调用方法时需要传递参数，否则参数为默认的事件对象</code> <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//借助mapActions生成对应的方法，方法中调用dispatch去联系actions（对象写法）</span></span><br><span class="line">...mapActions({<span class="attr">incrementOdd</span>:<span class="string">'addodd'</span>, <span class="attr">incrementWait</span>:<span class="string">'addwait'</span>}),</span><br><span class="line"></span><br><span class="line"> <span class="comment">//借助mapActions生成对应的方法，方法中调用dispatch去联系actions（数组写法）</span></span><br><span class="line">...mapActions([<span class="string">'addodd'</span>, <span class="string">'addwait'</span>]), <span class="comment">//事件对应的方法写成数组中的名字</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure></li>
+<li><strong>mapMutations方法：</strong> 用于帮助我们生成<code>mutations</code>对话方法，即：包含<code>$store.commit(xxx)</code>的函数。<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//借助mapMutations生成对应的方法，方法中调用commit去联系mutations（对象写法）</span></span><br><span class="line"> ...mapMutations({<span class="attr">increment</span>:<span class="string">'AddNum'</span>,<span class="attr">decrement</span>:<span class="string">'JianNum'</span>}),</span><br><span class="line"></span><br><span class="line"><span class="comment">//借助mapMutations生成对应的方法，方法中调用commit去联系mutations（数组写法）</span></span><br><span class="line"> ...mapMutations([<span class="string">'AddNum'</span>,<span class="string">'JianNum'</span>])</span><br></pre></td></tr></tbody></table></figure></li>
+<li><code>注意:</code>mapActions与mapMutations使用时，若需要传递参数：则需要在模板绑定事件时传递参数，否则参数为默认的事件对象<h2 id="三、多组件共享数据-模板化-命名空间"><a href="#三、多组件共享数据-模板化-命名空间" class="headerlink" title="三、多组件共享数据,模板化+命名空间"></a>三、多组件共享数据,模板化+命名空间</h2></li>
+</ul>
+</li>
+<li>目的：让代码更好维护,让多种数据分类更加明确</li>
+<li>修改<code>store/index.js</code><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> countAbout={</span><br><span class="line">    <span class="attr">namespaced</span>:<span class="literal">true</span>,  <span class="comment">//开启命名空间</span></span><br><span class="line">    <span class="attr">state</span>:{...},</span><br><span class="line">    <span class="attr">mutations</span>:{...},</span><br><span class="line">    <span class="attr">actions</span>:{...},</span><br><span class="line">    <span class="attr">getters</span>:{...},</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> personAbout={</span><br><span class="line">    <span class="attr">namespaced</span>:<span class="literal">true</span>,  <span class="comment">//开启命名空间</span></span><br><span class="line">    <span class="attr">state</span>:{...},</span><br><span class="line">    <span class="attr">mutations</span>:{...},</span><br><span class="line">    <span class="attr">actions</span>:{...},</span><br><span class="line">    <span class="attr">getters</span>:{...},          </span><br><span class="line">}</span><br><span class="line"><span class="keyword">const</span> store=<span class="keyword">new</span> Vuex.Store({</span><br><span class="line">    <span class="attr">modules</span>:{</span><br><span class="line">        <span class="attr">countAbout</span>:<span class="string">""</span>,</span><br><span class="line">        personAbout</span><br><span class="line">    }</span><br><span class="line">})</span><br></pre></td></tr></tbody></table></figure></li>
+<li>开启命名空间后，组件中读取state数据<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一：自己直接读取</span></span><br><span class="line">  <span class="built_in">this</span>.$store.state.personAbout.list</span><br><span class="line"><span class="comment">//方法二：借助mapStaste读取</span></span><br><span class="line">   ...mapState(<span class="string">'personAbout'</span>,[<span class="string">'sum'</span>,<span class="string">'school'</span>,<span class="string">'age'</span>])</span><br></pre></td></tr></tbody></table></figure></li>
+<li>开启命名空间后，组件中读取getter数据：<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一：自己直接读取</span></span><br><span class="line">  <span class="built_in">this</span>.$store.getters[<span class="string">'personAbout/firstPersonNum'</span>]</span><br><span class="line"><span class="comment">//方法二：借助mapGetters读取</span></span><br><span class="line">  ...mapGetters(<span class="string">'countAbout'</span>,[<span class="string">'bigSum'</span>])</span><br></pre></td></tr></tbody></table></figure></li>
+<li>开启命名空间后，组件中调用dispatch：<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一：自己直接调用dispatch</span></span><br><span class="line">  <span class="built_in">this</span>.$store.dispatch(<span class="string">'personAbout/addPersonWang'</span>,person)  <span class="comment">//person为传过去的数据</span></span><br><span class="line"><span class="comment">//方法二：借助mapActions</span></span><br><span class="line">  ...mapActions(<span class="string">'countAbout'</span>,{<span class="attr">increment</span>:<span class="string">'addnum'</span>,<span class="attr">decrement</span>:<span class="string">'jiannum'</span>})</span><br></pre></td></tr></tbody></table></figure></li>
+<li>开启命名空间后，组件中调用commit：<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一：自己直接调用commit</span></span><br><span class="line">  <span class="built_in">this</span>.$store.commit(<span class="string">'personAbout/AddNum'</span>,person)  <span class="comment">//person为传过去的数据</span></span><br><span class="line"><span class="comment">//方法二：借助mapMutations</span></span><br><span class="line">  ...mapMutations(<span class="string">'countAbout'</span>,{<span class="attr">increment</span>:<span class="string">'AddNum'</span>,<span class="attr">decrement</span>:<span class="string">'JianNum'</span>})</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">fanda</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/03/22/Vuex%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">http://example.com/2021/03/22/Vuex%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Another Dimension</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Vuex%E5%9F%BA%E7%A1%80/">Vuex基础</a></div><div class="post_share"><div class="social-share" data-image="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/Vue%2Fvuex.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/01/18/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"><img class="prev-cover" src="https://img0.baidu.com/it/u=2568004194,505127633&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=889&amp;h=500" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">我的第一篇文章</div></div></a></div><div class="next-post pull-right"><a href="/2021/03/16/Vue%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A004/"><img class="next-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fckimg.baidu.com%2Fcourse%2F2016-10%2F26%2Fef94b08737a4ac54d2991f3777278d90.jpg&amp;refer=http%3A%2F%2Fckimg.baidu.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1652530846&amp;t=617163ffbc1f4c3cea7ab2e3de809f13" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vue基础学习04</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">fanda</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fanda2"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/fanda2" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:3055093273@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/1069368447" target="_blank" title="Bilibili"><i class="fab fa-youtube"></i></a><a class="social-icon" href="https://500px.com.cn/fanjiangtao" target="_blank" title="500px"><i class="fab fa-500px"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#VueX%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001"><span class="toc-number">1.</span> <span class="toc-text">VueX学习笔记01</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%90%86%E8%A7%A3VueX"><span class="toc-number">1.1.</span> <span class="toc-text">一、理解VueX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81VueX%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">二、VueX的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A4%9A%E7%BB%84%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE-%E6%A8%A1%E6%9D%BF%E5%8C%96-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">1.3.</span> <span class="toc-text">三、多组件共享数据,模板化+命名空间</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/01/ES6%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A002/" title="ES6新特性学习02"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fes63.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6新特性学习02"/></a><div class="content"><a class="title" href="/2022/04/01/ES6%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A002/" title="ES6新特性学习02">ES6新特性学习02</a><time datetime="2022-04-01T15:30:58.000Z" title="发表于 2022-04-01 23:30:58">2022-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/01/ES6%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A001/" title="ES6新特性学习001"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fes62.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6新特性学习001"/></a><div class="content"><a class="title" href="/2022/04/01/ES6%E6%96%B0%E7%89%B9%E6%80%A7%E5%AD%A6%E4%B9%A001/" title="ES6新特性学习001">ES6新特性学习001</a><time datetime="2022-04-01T05:23:47.000Z" title="发表于 2022-04-01 13:23:47">2022-04-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/31/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Ajax学习笔记"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2F002.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Ajax学习笔记"/></a><div class="content"><a class="title" href="/2022/03/31/Ajax%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Ajax学习笔记">Ajax学习笔记</a><time datetime="2022-03-31T08:17:50.000Z" title="发表于 2022-03-31 16:17:50">2022-03-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/29/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B008/" title="JavaScript学习基础笔记08"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fjquery.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记08"/></a><div class="content"><a class="title" href="/2022/03/29/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B008/" title="JavaScript学习基础笔记08">JavaScript学习基础笔记08</a><time datetime="2022-03-29T08:55:54.000Z" title="发表于 2022-03-29 16:55:54">2022-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/27/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B007/" title="JavaScript学习基础笔记07"><img src="https://aiphoto-1305314152.cos.ap-chengdu.myqcloud.com/JS%2Fpc.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JavaScript学习基础笔记07"/></a><div class="content"><a class="title" href="/2022/03/27/JavaScript%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B007/" title="JavaScript学习基础笔记07">JavaScript学习基础笔记07</a><time datetime="2022-03-27T07:21:07.000Z" title="发表于 2022-03-27 15:21:07">2022-03-27</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://api.ixiaowai.cn/gqapi/gqapi.php')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By fanda</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Love look not with the eyes,but with the mind.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'jKGuUa2K2VEQ5pUPipsLn0h4-gzGzoHsz',
+      appKey: 'RSoNn5t98QJQxWRdUJt089kx',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function loadDisqus () {
+  var disqus_config = function () {
+    this.page.url = 'http://example.com/2021/03/22/Vuex%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/'
+    this.page.identifier = '2021/03/22/Vuex基础学习/'
+    this.page.title = 'Vuex基础学习'
+  };
+
+  window.disqusReset = () => {
+    DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  if (window.DISQUS) disqusReset()
+  else {
+    (function() { 
+      var d = document, s = d.createElement('script');
+      s.src = 'https://.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  }
+}
+
+if ('Valine' === 'Disqus' || !true) {
+  if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+  else loadDisqus()
+} else {
+  function loadOtherComment () {
+    loadDisqus()
+  }
+}
+</script></div><script src="/js/table.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script><script src="/true"></script><script>let pjaxSelectors = ["title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
